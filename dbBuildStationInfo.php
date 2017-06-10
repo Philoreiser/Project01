@@ -18,7 +18,7 @@ var_dump($result);
 
 foreach ( $root->TrainInfos as $Obj ) {
         foreach( $Obj as $key => $v ) {
-            if ( $key == "TimeInfos") {
+            if ( gettype($v) != "string") {
                 echo $key . '<br>';
                 var_dump($v);
                 // $branch = json_decode($v);
