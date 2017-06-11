@@ -14,10 +14,18 @@ function myParseSeatCode($code, $myFormat) {
     foreach ($myFormat as $key => $val) {
 
         // $data[$key] = substr($code, $val['start'], $val['length']);
-        $data[] = substr($code, $val['start'], $val['length']);
-
+        $str = substr($code, $val['start'], $val['length']);
+        
+        // remove the space character
+        if ($key == 'tickets') {
+            $data [] = str_replace("0", "", $str);
+        } else {
+            $data [] = str_replace( " ", "", $str);
+        }
+        
     }
 
+    
     return $data;
 }
 
