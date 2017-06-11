@@ -23,6 +23,8 @@ if ($handle) {
         // $count++;
     }
 
+    
+
     // foreach ($seat as $index=>$code) {
         
     //     $data = myParseSeatCode($code,$mySeatFormat);
