@@ -1,5 +1,8 @@
 <?php
 
+include "pdo_sql.php";
+include "myPhpAPIs.php";
+
 $seat = array();
 
 $handle = @fopen("./OpenData/seat_ver170610.txt","r");
@@ -11,22 +14,21 @@ if ($handle) {
         $seat [] = $buffer;
         $count++;
     }
-    //var_dump($seat);
 
-    // if (!eof($handle)) {
-    //     echo "Error: unexpected fgets() fail\n";
-    // }
+    // echo '<hr>';
+    // echo "count: {$count}".'<br>';
 
-    echo '<hr>';
-    echo "count: {$count}".'<br>';
-    foreach ($seat as $index=>$data) {
+    foreach ($seat as $index=>$code) {
         
-        $rest = substr($data, 0, 22);
-        $len = strlen($rest);
-        echo "{$index}=>{$rest}:{$len}" . '<br>';
+        $data = myParseSeatCode($code,$mySeatFormat);
+        echo $index .":" . '<br>';
+        // var_dump($data);
+        // foreach ( $data as $key=>$val) {
+        //     echo "{$key} : {$val} /";
+        // }
+        // echo '<br>';
+
         
-        // $len = strlen($data);
-        // echo "{$data}:{$len}" . '<br>';
     }
 
     fclose($handle);

@@ -1,5 +1,24 @@
 <?php
 
+$mySeatFormat = [
+    "date" => [ "start"=>0, "length"=>8], 
+    "train" => ["start"=>8, "length"=>4], 
+    "depStation" => ["start"=>12, "length"=>3], 
+    "arrStation" => ["start"=>15, "length"=>3], 
+    "tickets" => ["start"=>18, "length"=>4] 
+];
+
+function myParseSeatCode($code, $myFormat) {
+    $data = array();
+
+    foreach ($myFormat as $key => $val) {
+
+        $data[$key] = substr($code, $val['start'], $val['length']);
+    }
+
+    return $data;
+}
+
 function myPrintArray($myArray, string $terminator) {
     $type = gettype($myArray);
     if ( $type != "array") {
