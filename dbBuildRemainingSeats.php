@@ -22,11 +22,11 @@ if ($handle) {
         
         $data = myParseSeatCode($code,$mySeatFormat);
         echo $index .":" . '<br>';
-        // var_dump($data);
-        // foreach ( $data as $key=>$val) {
-        //     echo "{$key} : {$val} /";
-        // }
-        // echo '<br>';
+        var_dump($data);
+        foreach ( $data as $key=>$val) {
+            echo "{$key} : {$val} /";
+        }
+        echo '<br>';
 
         
     }
