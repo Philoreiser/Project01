@@ -2,11 +2,8 @@
 include "pdo_sql.php";
 include "myPhpAPIs.php";
 
-// $json = file_get_contents("./OpenData/車站基本資料2.json");
-
-// $json = file_get_contents("./OpenData/StationsBasicInfo.json");
-// $json = file_get_contents("http://www.railway.gov.tw/Upload/UserFiles/%E8%BB%8A%E7%AB%99%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%992.json");
-$json = file_get_contents("20170610.json");
+$json = file_get_contents("./OpenData/StationsInfo_ver170610.json");
+// var_dump($json);
 
 $src_encoding = mb_detect_encoding($json, mb_list_encodings(), true); // not really working
 echo "source encoding: " . $src_encoding . '<br>';
@@ -15,24 +12,23 @@ $root = json_decode($result, true);
 echo gettype($root) . '<br>';
 // var_dump($result);
 
+var_dump($root);
 
-foreach ( $root["TrainInfos"] as $Obj ) {
-        foreach( $Obj as $key => $val ) {
-            myPrintObj($key, $val,'<br>');
-            // if ( gettype($v) != "string") {
-            //     // echo "{$key} ". gettype($v) . '<br>';
-            //     var_dump($v);
-            //     // $branch = json_decode($v);
+$pdo = @new pdo($pdo_dsn, $db_user, $db_password, $pdo_opt);
+$sql = "INSERT INTO StationsInfo (StnCode_4, StnChtName, StnEngName, StnCode_3, ChtName, EngName, ChtAddress, EngAddress, Tel, gps) VALUES (?,?,?,?,?,?,?,?,?,?)";
+$stmt = $pdo->prepare($sql);
 
-            //     // foreach ( $v as $element) {
-            //     //     echo "{$element}<br>";
-            //     // }
-            // } else {
-            //     echo "{$key} : {$v}<br>";
+foreach ($root as $data) {
 
-            // }
-        }
-        echo '<hr>';
+    $insert_val = array();
+    // var_dump($data);
+
+    foreach ($data as $key => $val) {
+        // echo "{$key}: {$val}<br>";
+        $insert_val [] = $val;
+    }
+
+    $stmt->execute($insert_val);
 }
 
 ?>
