@@ -17,12 +17,23 @@ function myParseSeatCode($code, $myFormat) {
         $str = substr($code, $val['start'], $val['length']);
         
         // remove the space character
-        if ($key == 'tickets') {
-            $data [] = str_replace("0", "", $str);
-        } else {
-            $data [] = str_replace( " ", "", $str);
-        }
+        // if ($key == 'tickets') {
+        //     $data [] = str_replace("0", "", $str);
+        // } else {
+        //     $data [] = str_replace( " ", "", $str);
+        // }
         
+        switch ($key) {
+            case 'tickets':
+                $data [] = str_replace("0", "", $str);
+                break;
+            case 'depStation':
+            case 'arrStation':
+                $data [] = (int) $str;
+                break;
+            default: // train
+                $data [] = str_replace( " ", "", $str);
+        }
     }
 
     

@@ -1,104 +1,104 @@
 <?php
 
-include "pdo_sql.php";
+// include "pdo_sql.php";
 
 
-$depStation = '';
-$arrStation = '';
+// $depStation = '';
+// $arrStation = '';
 
-if (isset($_POST['date'])) {
+// if (isset($_POST['date'])) {
 
-    $uiDate = $_POST['date'];
-    $depStnChtName = $_POST['depStn'];
-    $arrStnChtName = $_POST['arrStn'];
-    $carClass = $_POST['carClass'];
+//     $uiDate = $_POST['date'];
+//     $depStnChtName = $_POST['depStn'];
+//     $arrStnChtName = $_POST['arrStn'];
+//     $carClass = $_POST['carClass'];
 
-    echo '<hr>';
+//     echo '<hr>';
 
-    // automatically date=>today as default (e.g. $uiDate = '')
-    $bufferDate = new DateTime($uiDate);
-    $date = date_format( $bufferDate, 'Ymd');
-    echo $date . '<br>';
-
-
-
-
-    $pdo = @new pdo($pdo_dsn, $db_user, $db_password, $pdo_opt);
-    $sql_tickets = "SELECT date, train, depStation, arrStation, tickets FROM Tickets WHERE date = ? AND depStation = ? AND arrStation = ?";
-    // $sql_stnInfo = "SELECT StnChtName, StnEngName FROM StationsInfo WHERE StnCode_3 = ?";
-    $sql_stnInfo = "SELECT StnCode_3 FROM StationsInfo WHERE StnChtName = ?";
+//     // automatically date=>today as default (e.g. $uiDate = '')
+//     $bufferDate = new DateTime($uiDate);
+//     $date = date_format( $bufferDate, 'Ymd');
+//     echo $date . '<br>';
 
 
 
-    // To get StationCode_3 of departure station
-    $stmt = $pdo->prepare($sql_stnInfo);
-    $stmt->execute([$depStnChtName]);
-    $rs = $stmt->fetch(PDO::FETCH_ASSOC);
-    // $rs = $stmt->fetch(PDO::FETCH_BOTH);
-    $isDepStnFetched = false; // departure station found?
-    if ( $rs !== false ) {
-        foreach ($rs as $key => $val) {
-            // echo "$key: $val\t";
-            $depStation = $val; // should be only one
-            $isDepStnFetched = true;
-        }
-    } else {
-        $isDepStnFetched = false;
-    }
 
-    // echo "Depart: {$depStnChtName}:{$depStation}".'<br>';
-    echo "Depart: {$depStnChtName}".'<br>';
+//     $pdo = @new pdo($pdo_dsn, $db_user, $db_password, $pdo_opt);
+//     $sql_tickets = "SELECT date, train, depStation, arrStation, tickets FROM Tickets WHERE date = ? AND depStation = ? AND arrStation = ?";
+//     // $sql_stnInfo = "SELECT StnChtName, StnEngName FROM StationsInfo WHERE StnCode_3 = ?";
+//     $sql_stnInfo = "SELECT StnCode_3 FROM StationsInfo WHERE StnChtName = ?";
 
-    echo '<hr>';
 
-    // To get StationCode_3 of destination station
-    $stmt->execute([$arrStnChtName]);
-    $rs = $stmt->fetch(PDO::FETCH_ASSOC);
-    // var_dump($rs);
-    // $rs = $stmt->fetch(PDO::FETCH_BOTH);
+
+//     // To get StationCode_3 of departure station
+//     $stmt = $pdo->prepare($sql_stnInfo);
+//     $stmt->execute([$depStnChtName]);
+//     $rs = $stmt->fetch(PDO::FETCH_ASSOC);
+//     // $rs = $stmt->fetch(PDO::FETCH_BOTH);
+//     $isDepStnFetched = false; // departure station found?
+//     if ( $rs !== false ) {
+//         foreach ($rs as $key => $val) {
+//             // echo "$key: $val\t";
+//             $depStation = $val; // should be only one
+//             $isDepStnFetched = true;
+//         }
+//     } else {
+//         $isDepStnFetched = false;
+//     }
+
+//     // echo "Depart: {$depStnChtName}:{$depStation}".'<br>';
+//     echo "Depart: {$depStnChtName}".'<br>';
+
+//     echo '<hr>';
+
+//     // To get StationCode_3 of destination station
+//     $stmt->execute([$arrStnChtName]);
+//     $rs = $stmt->fetch(PDO::FETCH_ASSOC);
+//     // var_dump($rs);
+//     // $rs = $stmt->fetch(PDO::FETCH_BOTH);
     
-    $isArrStnFetched = false; // destination station found?
-    if ( $rs !== false) {
-        foreach ($rs as $key => $val) {
-            // echo "$key: $val\t";
-            $arrStation = $val; // should be also only one
-            $isArrStnFetched = true;
-        }
-    } else {
-        $isArrStnFetched = false;
-    }
+//     $isArrStnFetched = false; // destination station found?
+//     if ( $rs !== false) {
+//         foreach ($rs as $key => $val) {
+//             // echo "$key: $val\t";
+//             $arrStation = $val; // should be also only one
+//             $isArrStnFetched = true;
+//         }
+//     } else {
+//         $isArrStnFetched = false;
+//     }
 
-    // echo "Arrive: {$arrStnChtName}:{$arrStation}".'<br>';
-    echo "Arrive: {$arrStnChtName}".'<br>';
-    echo '<hr>';
+//     // echo "Arrive: {$arrStnChtName}:{$arrStation}".'<br>';
+//     echo "Arrive: {$arrStnChtName}".'<br>';
+//     echo '<hr>';
 
-    $isTrainFetched = false; // remaining tickets found?
-    if ( $isDepStnFetched && $isArrStnFetched ) {
+//     $isTrainFetched = false; // remaining tickets found?
+//     if ( $isDepStnFetched && $isArrStnFetched ) {
 
-        $stmt = $pdo->prepare($sql_tickets);
-        $stmt->execute([$date, $depStation, $arrStation]);
+//         $stmt = $pdo->prepare($sql_tickets);
+//         $stmt->execute([$date, $depStation, $arrStation]);
 
-        while ( $rs = $stmt->fetch(PDO::FETCH_ASSOC) ) {
+//         while ( $rs = $stmt->fetch(PDO::FETCH_ASSOC) ) {
 
-            foreach ($rs as $key => $val) {
-                echo "$key: $val\t";
-            }
-            echo "<br>";
+//             foreach ($rs as $key => $val) {
+//                 echo "$key: $val\t";
+//             }
+//             echo "<br>";
 
-            $isTrainFetched = true;
-        }
+//             $isTrainFetched = true;
+//         }
 
-    }
+//     }
 
-    if ($isTrainFetched) {
-        echo 'Got train'.'<br>';
-    } else {
-        echo 'No train'.'<br>';
-    }
+//     if ($isTrainFetched) {
+//         echo 'Got train'.'<br>';
+//     } else {
+//         echo 'No train'.'<br>';
+//     }
 
-}
+// }
 
-?>
+// ?>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
@@ -112,9 +112,11 @@ if (isset($_POST['date'])) {
         }
     ?>
     <script src="jquery/jquery-3.2.1.min.js"></script>
+
 </head>
 <body>
-    <form method = "post" >
+    <!--<form method = "post" >-->
+    <form id='uiForm' method="post" action="searchTickets.php">
         
             日期:<input type="date" name="date"/>
         
@@ -122,7 +124,9 @@ if (isset($_POST['date'])) {
             起站:
             
                 <input type="radio" name="depStn" value="基隆"/>基隆
+                <input type="radio" name="depStn" value="七堵"/>七堵
                 <input type="radio" name="depStn" value="臺北"/>臺北
+                <input type="radio" name="depStn" value="板橋"/>板橋
                 <input type="radio" name="depStn" value="桃園"/>桃園
                 <input type="radio" name="depStn" value="中壢"/>中壢
                 <input type="radio" name="depStn" value="新竹"/>新竹
@@ -144,7 +148,9 @@ if (isset($_POST['date'])) {
             迄站:
             
                 <input type="radio" name="arrStn" value="基隆"/>基隆
+                <input type="radio" name="arrStn" value="七堵"/>七堵
                 <input type="radio" name="arrStn" value="臺北"/>臺北
+                <input type="radio" name="arrStn" value="板橋"/>板橋
                 <input type="radio" name="arrStn" value="桃園"/>桃園
                 <input type="radio" name="arrStn" value="中壢"/>中壢
                 <input type="radio" name="arrStn" value="新竹"/>新竹
@@ -177,11 +183,23 @@ if (isset($_POST['date'])) {
             
         
         
-            <input type="submit" name="request" value="查詢"/>
-        
+            <!--<input type="submit" name="request" value="查詢"/>-->
+            <input id='post-btn' type="button" name="lookup" value="查詢">
             
 
     </form>
+
+    <div id='showResults'></div>
+
+    <script>
+    $("#post-btn").click( function() {
+        $.post("searchTickets.php", $(uiForm).serialize(), function(data) {
+            // alert(data);
+            $("#showResults").html(data);
+        });
+    });
+    </script>
+
 </body>
 
 </html>

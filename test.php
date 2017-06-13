@@ -12,6 +12,25 @@ echo '<hr>';
 
 $format3 = 'Ymd';
 $test3 = DateTime::createFromFormat( $format3, '20170611');
-echo $test3->format('Y-m-d');
+echo $test3->format('Y-m-d') . '<br>';
+
+$str1 = "003";
+echo (int) $str1 . '<br>';
+
+$str2 = "027";
+echo (int) $str2 . '<br>';
+
+$str3 = "013";
+$num3 = (int) $str3;
+echo $num3 . '<br>';
+
+$str4 = "109";
+$num4 = (int) $str4;
+echo $num4 . '<br>';
+
+$str5 = "910";
+$num5 = (int) $str5;
+echo $num5 . '<br>';
+
 
 ?>
