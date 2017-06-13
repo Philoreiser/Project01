@@ -10,6 +10,36 @@
     <script src="jquery/jquery-3.2.1.min.js"></script>
 
 <style>
+
+#uiForm div {
+    align: left;
+    margin: 4px 2px;
+}
+
+#uiForm div:hover {
+    background-color: #ffffcc;
+}
+
+#post-btn {
+    background-color: #4caf50;
+    color: white;
+    border: 2px solid #4caf50;
+    border-radius: 12px;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+#post-btn:hover {
+    background-color: white;
+    color: black;
+}
+
 #retResults {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -100,7 +130,7 @@
             
         
             <div id="allowPieces">
-            分段組合查詢: <a href="#">(說明)</a>
+            分段組合查詢:
             
                 <input type="radio" name="allowPieces" value="Yes" checked>是
                 <input type="radio" name="allowPieces" value="No">否

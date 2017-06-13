@@ -7,7 +7,12 @@ $arrStation = '';
 
 if (isset($_POST['date'])) {
 
-    $uiDate = $_POST['date'];
+
+    $uiDate = $_POST['date']; // bug
+    // if ($uiDate = '') {
+    //     $uiDate = date("Y-m-d");
+    // }
+    // echo $uiDate . '<br>';
     $depStnChtName = $_POST['depStn'];
     $arrStnChtName = $_POST['arrStn'];
     $carClass = $_POST['carClass'];
