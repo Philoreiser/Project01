@@ -106,17 +106,21 @@ if (isset($_POST['date'])) {
 
     <title>Railway Tickets</title>
 
+    <?php
+        foreach (glob("css/pure-release-1.0.0/*.css") as $css) {
+            echo "<link type='text/css' rel='stylesheet' href='$css'>\n";
+        }
+    ?>
     <script src="jquery/jquery-3.2.1.min.js"></script>
 </head>
 <body>
     <form method = "post" >
-    <table width="80%"  >
-        <tr>
-            <td>日期:</td><td><input type="date" name="date"/></td>
-        </tr>
-        <tr>
-            <td>起站:</td>
-            <td>
+        
+            日期:<input type="date" name="date"/>
+        
+        
+            起站:
+            
                 <input type="radio" name="depStn" value="基隆"/>基隆
                 <input type="radio" name="depStn" value="臺北"/>臺北
                 <input type="radio" name="depStn" value="桃園"/>桃園
@@ -134,11 +138,11 @@ if (isset($_POST['date'])) {
                 <input type="radio" name="depStn" value="花蓮"/>花蓮
                 <input type="radio" name="depStn" value="宜蘭"/>宜蘭
                 <input type="radio" name="depStn" value="NoStn" hidden checked/>
-            </td>
-        </tr>
-        <tr>
-            <td>迄站:</td>
-            <td>
+            
+        
+        
+            迄站:
+            
                 <input type="radio" name="arrStn" value="基隆"/>基隆
                 <input type="radio" name="arrStn" value="臺北"/>臺北
                 <input type="radio" name="arrStn" value="桃園"/>桃園
@@ -156,28 +160,26 @@ if (isset($_POST['date'])) {
                 <input type="radio" name="arrStn" value="花蓮"/>花蓮
                 <input type="radio" name="arrStn" value="宜蘭"/>宜蘭
                 <input type="radio" name="arrStn" value="NoStn" hidden checked/>  
-            </td>
-        <tr>
-            <td>對號列車車種:</td>
-            <td>
+            
+        
+            對號列車車種:
+            
                 <input type="checkbox" name="carClass[]" value="TC" checked/>自強號
                 <input type="checkbox" name="carClass[]" value="CK"/>莒光號
                 <input type="checkbox" name="carClass[]" value="FX"/>復興號
-            </td>
-        </tr>
-        <tr>
-            <td>分段組合查詢: <a href="#">(說明)</a></td>
-            <td>
+            
+        
+        
+            分段組合查詢: <a href="#">(說明)</a>
+            
                 <input type="radio" name="allowPieces" value="Yes" checked>是
                 <input type="radio" name="allowPieces" value="No">否
-            </td>
-        </tr>
-        <tr>
-            <td span="1"></td>
-            <td><input type="submit" name="request" value="查詢"/></td>
-        </tr>
             
-        </table>
+        
+        
+            <input type="submit" name="request" value="查詢"/>
+        
+            
 
     </form>
 </body>
