@@ -69,7 +69,7 @@ if (isset($_POST['date'])) {
         $stmt->execute([$date, $depStation, $arrStation]);
 
         echo "
-        <table>
+        <table id='retResults'>
         <th>日期</th><th>車次</th><th>起站</th><th>迄站</th><th>剩餘票數</th>
         ";
 
@@ -96,7 +96,7 @@ if (isset($_POST['date'])) {
     }
 
     if ($isTrainFetched) {
-        echo 'Got train'.'<br>';
+        //echo 'Got train'.'<br>';
     } else {
         echo 'No train'.'<br>';
     }

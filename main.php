@@ -5,25 +5,47 @@
 
     <title>Railway Tickets</title>
 
-    <link  type='text/css' rel='stylesheet' href='css/pure-release-1.0.0/normalize.css'>
+    <!--<link  type='text/css' rel='stylesheet' href='css/pure-release-1.0.0/normalize.css'>-->
 
-    <?php
-        foreach (glob("css/pure-release-1.0.0/*.css") as $css) {
-            echo "<link type='text/css' rel='stylesheet' href='$css'>\n";
-        }
-    ?>
     <script src="jquery/jquery-3.2.1.min.js"></script>
+
+<style>
+#retResults {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#retResults td, #retResults th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#retResults tr:nth-child(even){background-color: #f2f2f2;}
+
+#retResults tr:hover {background-color: #ddd;}
+
+#retResults th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
 
 </head>
 <body>
     <form id='uiForm' method="post" action="searchTickets.php" class="pure-form pure-form-aligned">
         <fieldset>
             
-            日期:<input type="date" name="date"/>
+            <div id="optDate">
+            <label for="optPickDate" >日期</label>
+            <input id="optPickDate" type="date" name="date"/>
+            </div>
         
-        
-            起站:
-            
+            <div id="depStation">        
+            起站:            
                 <input type="radio" name="depStn" value="基隆"/>基隆
                 <input type="radio" name="depStn" value="七堵"/>七堵
                 <input type="radio" name="depStn" value="臺北"/>臺北
@@ -43,11 +65,10 @@
                 <input type="radio" name="depStn" value="花蓮"/>花蓮
                 <input type="radio" name="depStn" value="宜蘭"/>宜蘭
                 <input type="radio" name="depStn" value="NoStn" hidden checked/>
-            
+            </div>
         
-        
+            <div id="arrStation">
             迄站:
-            
                 <input type="radio" name="arrStn" value="基隆"/>基隆
                 <input type="radio" name="arrStn" value="七堵"/>七堵
                 <input type="radio" name="arrStn" value="臺北"/>臺北
@@ -66,26 +87,30 @@
                 <input type="radio" name="arrStn" value="臺東"/>臺東
                 <input type="radio" name="arrStn" value="花蓮"/>花蓮
                 <input type="radio" name="arrStn" value="宜蘭"/>宜蘭
-                <input type="radio" name="arrStn" value="NoStn" hidden checked/>  
+                <input type="radio" name="arrStn" value="NoStn" hidden checked/>
+            </div>
             
-        
+            
+            <div id="carClass">
             對號列車車種:
-            
-                <input type="checkbox" name="carClass[]" value="TC" checked/>自強號
-                <input type="checkbox" name="carClass[]" value="CK"/>莒光號
-                <input type="checkbox" name="carClass[]" value="FX"/>復興號
+                <input id="carClass-one" type="checkbox" name="carClass[]" value="TC" checked/>自強號
+                <input id="carClass-two" type="checkbox" name="carClass[]" value="CK"/>莒光號
+                <input id="carClass-three" type="checkbox" name="carClass[]" value="FX"/>復興號
+            </div>
             
         
-        
+            <div id="allowPieces">
             分段組合查詢: <a href="#">(說明)</a>
             
                 <input type="radio" name="allowPieces" value="Yes" checked>是
                 <input type="radio" name="allowPieces" value="No">否
-            
+            </div>
         
             
             <!--<input type="submit" name="request" value="查詢"/>-->
+            <div>
             <input id='post-btn' type="button" name="lookup" value="查詢">
+            </div>
             
         </fieldset>
     </form>
