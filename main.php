@@ -4,27 +4,20 @@ include "pdo_sql.php";
 
 if (isset($_POST['date'])) {
 
-    $udate = $_POST['date'];
+    $uiDate = $_POST['date'];
     $depStnChtName = $_POST['depStn'];
     $arrStnChtName = $_POST['arrStn'];
     $carClass = $_POST['carClass'];
 
-    if ($udate == '') {
-        echo 'No date' . '<br>';
-    } else {
-        echo $udate . '<br>';
-    }
-    // echo $depStn . '<br>';
-    // echo $arrStn . '<br>';
-    // echo $carClass . '<br>';
-
     echo '<hr>';
 
-    $date = '20170608';
-    // $train = '754';
-    // $depStation = '100';
+    // automatically date=>today as default (e.g. $uiDate = '')
+    $bufferDate = new DateTime($uiDate);
+    $date = date_format( $bufferDate, 'Ymd');
+    echo $date . '<br>';
+
+
     $depStation = '';
-    // $arrStation = '158';
     $arrStation = '';
 
 
@@ -43,7 +36,7 @@ if (isset($_POST['date'])) {
     $isDepStnFetched = false; // departure station found?
     if ( $rs !== false ) {
         foreach ($rs as $key => $val) {
-            echo "$key: $val\t";
+            // echo "$key: $val\t";
             $depStation = $val; // should be only one
             $isDepStnFetched = true;
         }
@@ -51,7 +44,9 @@ if (isset($_POST['date'])) {
         $isDepStnFetched = false;
     }
 
-    echo "Depart: {$depStnChtName}:{$depStation}".'<br>';
+    // echo "Depart: {$depStnChtName}:{$depStation}".'<br>';
+    echo "Depart: {$depStnChtName}".'<br>';
+
     echo '<hr>';
 
     // To get StationCode_3 of destination station
@@ -63,7 +58,7 @@ if (isset($_POST['date'])) {
     $isArrStnFetched = false; // destination station found?
     if ( $rs !== false) {
         foreach ($rs as $key => $val) {
-            echo "$key: $val\t";
+            // echo "$key: $val\t";
             $arrStation = $val; // should be also only one
             $isArrStnFetched = true;
         }
@@ -71,7 +66,8 @@ if (isset($_POST['date'])) {
         $isArrStnFetched = false;
     }
 
-    echo "Arrive: {$arrStnChtName}:{$arrStation}".'<br>';
+    // echo "Arrive: {$arrStnChtName}:{$arrStation}".'<br>';
+    echo "Arrive: {$arrStnChtName}".'<br>';
     echo '<hr>';
 
     $isTrainFetched = false; // remaining tickets found?
@@ -152,6 +148,11 @@ if (isset($_POST['date'])) {
         <input type="checkbox" name="carClass[]" value="TC" checked/>自強號
         <input type="checkbox" name="carClass[]" value="CK"/>莒光號
         <input type="checkbox" name="carClass[]" value="FX"/>復興號
+        <hr>
+        查無剩餘車票怎麼辦?<br>
+        自動查詢各車次分段餘票: <a href="#">(說明)</a> <br>
+        <input type="radio" name="allowPieces" value="Yes" checked>是
+        <input type="radio" name="allowPieces" value="No">否
         <hr>
         <input type="submit" name="request" value="查詢"/>
         <hr>
