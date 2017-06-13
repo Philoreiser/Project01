@@ -12,12 +12,10 @@ if (isset($_POST['date'])) {
     $arrStnChtName = $_POST['arrStn'];
     $carClass = $_POST['carClass'];
 
-    echo '<hr>';
-
     // automatically date=>today as default (e.g. $uiDate = '')
     $bufferDate = new DateTime($uiDate);
     $date = date_format( $bufferDate, 'Ymd');
-    echo $date . '<br>';
+    // echo $date . '<br>';
 
 
 
@@ -45,10 +43,6 @@ if (isset($_POST['date'])) {
         $isDepStnFetched = false;
     }
 
-    // echo "Depart: {$depStnChtName}:{$depStation}".'<br>';
-    echo "Depart: {$depStnChtName}".'<br>';
-
-    echo '<hr>';
 
     // To get StationCode_3 of destination station
     $stmt->execute([$arrStnChtName]);
@@ -67,9 +61,6 @@ if (isset($_POST['date'])) {
         $isArrStnFetched = false;
     }
 
-    // echo "Arrive: {$arrStnChtName}:{$arrStation}".'<br>';
-    echo "Arrive: {$arrStnChtName}".'<br>';
-    echo '<hr>';
 
     $isTrainFetched = false; // remaining tickets found?
     if ( $isDepStnFetched && $isArrStnFetched ) {
@@ -77,15 +68,30 @@ if (isset($_POST['date'])) {
         $stmt = $pdo->prepare($sql_tickets);
         $stmt->execute([$date, $depStation, $arrStation]);
 
-        while ( $rs = $stmt->fetch(PDO::FETCH_ASSOC) ) {
+        echo "
+        <table>
+        <th>日期</th><th>車次</th><th>起站</th><th>迄站</th><th>剩餘票數</th>
+        ";
 
-            foreach ($rs as $key => $val) {
-                echo "$key: $val\t";
-            }
-            echo "<br>";
+        while ( $rs = $stmt->fetch(PDO::FETCH_ASSOC) ) {
+            echo "<tr>";
+            echo "<td>{$date}</td>";
+            echo "<td>".$rs['train']."</td>";
+            echo "<td>{$depStnChtName}</td>";
+            echo "<td>{$arrStnChtName}</td>";
+            echo "<td>".$rs['tickets']."</td>";
+            echo "</tr>";
+
+            // foreach ($rs as $key => $val) {
+            //     // echo "$key: $val\t";
+            //     echo "<td>{$val}</td>";
+            // }
+            // echo "<br>";
 
             $isTrainFetched = true;
         }
+
+        echo "</table>";
 
     }
 
