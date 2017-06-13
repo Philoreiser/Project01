@@ -2,6 +2,10 @@
 
 include "pdo_sql.php";
 
+
+$depStation = '';
+$arrStation = '';
+
 if (isset($_POST['date'])) {
 
     $uiDate = $_POST['date'];
@@ -17,8 +21,6 @@ if (isset($_POST['date'])) {
     echo $date . '<br>';
 
 
-    $depStation = '';
-    $arrStation = '';
 
 
     $pdo = @new pdo($pdo_dsn, $db_user, $db_password, $pdo_opt);
@@ -99,63 +101,84 @@ if (isset($_POST['date'])) {
 ?>
 <html>
 <head>
-    <title>Railway Tickets</title>
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Railway Tickets</title>
+
+    <script src="jquery/jquery-3.2.1.min.js"></script>
 </head>
 <body>
     <form method = "post" >
-        日期: <input type="date" name="date"/>
-        <hr>
-        起站:<br>
-        <input type="radio" name="depStn" value="基隆"/>基隆
-        <input type="radio" name="depStn" value="臺北"/>臺北
-        <input type="radio" name="depStn" value="桃園"/>桃園
-        <input type="radio" name="depStn" value="中壢"/>中壢
-        <input type="radio" name="depStn" value="新竹"/>新竹
-        <input type="radio" name="depStn" value="苗栗"/>苗栗
-        <input type="radio" name="depStn" value="台中"/>台中
-        <input type="radio" name="depStn" value="彰化"/>彰化
-        <input type="radio" name="depStn" value="雲林"/>雲林
-        <input type="radio" name="depStn" value="嘉義"/>嘉義
-        <input type="radio" name="depStn" value="臺南"/>臺南
-        <input type="radio" name="depStn" value="高雄"/>高雄
-        <input type="radio" name="depStn" value="屏東"/>屏東
-        <input type="radio" name="depStn" value="臺東"/>臺東
-        <input type="radio" name="depStn" value="花蓮"/>花蓮
-        <input type="radio" name="depStn" value="宜蘭"/>宜蘭
-        <input type="radio" name="depStn" value="NoStn" hidden checked/>  
-        <hr>
-        迄站:<br>
-        <input type="radio" name="arrStn" value="基隆"/>基隆
-        <input type="radio" name="arrStn" value="臺北"/>臺北
-        <input type="radio" name="arrStn" value="桃園"/>桃園
-        <input type="radio" name="arrStn" value="中壢"/>中壢
-        <input type="radio" name="arrStn" value="新竹"/>新竹
-        <input type="radio" name="arrStn" value="苗栗"/>苗栗
-        <input type="radio" name="arrStn" value="台中"/>台中
-        <input type="radio" name="arrStn" value="彰化"/>彰化
-        <input type="radio" name="arrStn" value="雲林"/>雲林
-        <input type="radio" name="arrStn" value="嘉義"/>嘉義
-        <input type="radio" name="arrStn" value="臺南"/>臺南
-        <input type="radio" name="arrStn" value="高雄"/>高雄
-        <input type="radio" name="arrStn" value="屏東"/>屏東
-        <input type="radio" name="arrStn" value="臺東"/>臺東
-        <input type="radio" name="arrStn" value="花蓮"/>花蓮
-        <input type="radio" name="arrStn" value="宜蘭"/>宜蘭
-        <input type="radio" name="arrStn" value="NoStn" hidden checked/>  
-        <hr>
-        對號列車車種:<br>
-        <input type="checkbox" name="carClass[]" value="TC" checked/>自強號
-        <input type="checkbox" name="carClass[]" value="CK"/>莒光號
-        <input type="checkbox" name="carClass[]" value="FX"/>復興號
-        <hr>
-        查無剩餘車票怎麼辦?<br>
-        自動查詢各車次分段餘票: <a href="#">(說明)</a> <br>
-        <input type="radio" name="allowPieces" value="Yes" checked>是
-        <input type="radio" name="allowPieces" value="No">否
-        <hr>
-        <input type="submit" name="request" value="查詢"/>
-        <hr>
+    <table width="80%"  >
+        <tr>
+            <td>日期:</td><td><input type="date" name="date"/></td>
+        </tr>
+        <tr>
+            <td>起站:</td>
+            <td>
+                <input type="radio" name="depStn" value="基隆"/>基隆
+                <input type="radio" name="depStn" value="臺北"/>臺北
+                <input type="radio" name="depStn" value="桃園"/>桃園
+                <input type="radio" name="depStn" value="中壢"/>中壢
+                <input type="radio" name="depStn" value="新竹"/>新竹
+                <input type="radio" name="depStn" value="苗栗"/>苗栗
+                <input type="radio" name="depStn" value="台中"/>台中
+                <input type="radio" name="depStn" value="彰化"/>彰化
+                <input type="radio" name="depStn" value="雲林"/>雲林
+                <input type="radio" name="depStn" value="嘉義"/>嘉義
+                <input type="radio" name="depStn" value="臺南"/>臺南
+                <input type="radio" name="depStn" value="高雄"/>高雄
+                <input type="radio" name="depStn" value="屏東"/>屏東
+                <input type="radio" name="depStn" value="臺東"/>臺東
+                <input type="radio" name="depStn" value="花蓮"/>花蓮
+                <input type="radio" name="depStn" value="宜蘭"/>宜蘭
+                <input type="radio" name="depStn" value="NoStn" hidden checked/>
+            </td>
+        </tr>
+        <tr>
+            <td>迄站:</td>
+            <td>
+                <input type="radio" name="arrStn" value="基隆"/>基隆
+                <input type="radio" name="arrStn" value="臺北"/>臺北
+                <input type="radio" name="arrStn" value="桃園"/>桃園
+                <input type="radio" name="arrStn" value="中壢"/>中壢
+                <input type="radio" name="arrStn" value="新竹"/>新竹
+                <input type="radio" name="arrStn" value="苗栗"/>苗栗
+                <input type="radio" name="arrStn" value="台中"/>台中
+                <input type="radio" name="arrStn" value="彰化"/>彰化
+                <input type="radio" name="arrStn" value="雲林"/>雲林
+                <input type="radio" name="arrStn" value="嘉義"/>嘉義
+                <input type="radio" name="arrStn" value="臺南"/>臺南
+                <input type="radio" name="arrStn" value="高雄"/>高雄
+                <input type="radio" name="arrStn" value="屏東"/>屏東
+                <input type="radio" name="arrStn" value="臺東"/>臺東
+                <input type="radio" name="arrStn" value="花蓮"/>花蓮
+                <input type="radio" name="arrStn" value="宜蘭"/>宜蘭
+                <input type="radio" name="arrStn" value="NoStn" hidden checked/>  
+            </td>
+        <tr>
+            <td>對號列車車種:</td>
+            <td>
+                <input type="checkbox" name="carClass[]" value="TC" checked/>自強號
+                <input type="checkbox" name="carClass[]" value="CK"/>莒光號
+                <input type="checkbox" name="carClass[]" value="FX"/>復興號
+            </td>
+        </tr>
+        <tr>
+            <td>分段組合查詢: <a href="#">(說明)</a></td>
+            <td>
+                <input type="radio" name="allowPieces" value="Yes" checked>是
+                <input type="radio" name="allowPieces" value="No">否
+            </td>
+        </tr>
+        <tr>
+            <td span="1"></td>
+            <td><input type="submit" name="request" value="查詢"/></td>
+        </tr>
+            
+        </table>
+
     </form>
 </body>
 
