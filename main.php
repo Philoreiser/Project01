@@ -161,7 +161,7 @@ fieldset {
 
     <script>
     $("#post-btn").click( function() {
-        $.post("searchTickets.php", $(uiForm).serialize(), function(data) {
+        $.post("searchTickets.php", $("#uiForm").serialize(), function(data) {
             // alert(data);
             $("#showResults").html(data);
         });
