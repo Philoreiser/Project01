@@ -34,3 +34,30 @@ echo $num5 . '<br>';
 
 
 ?>
+
+<html>
+    <head>
+        <script src="jquery/jquery-3.2.1.min.js"></script>
+        <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+        <script src="jquery/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+
+        <!--<style rel="stylesheet" type="text/css">
+        @import url(datepicker.ui.css);
+        </style>-->
+
+        <script type="text/javascript" src="jquery/jquery-ui-1.12.1.custom/datepicker.ui.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+
+        
+    </head>
+    <body>
+        <p>Date:<input id="datepicker" type="text" name="date"></p>
+        <script>
+            $( function(){
+                $("#datepicker").datepicker();
+
+            });
+        </script>
+        
+    </body>
+</html>

@@ -20,6 +20,17 @@
     background-color: #ffffcc;
 }
 
+fieldset { 
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove (internal value);
+}
+
 #post-btn {
     background-color: #4caf50;
     color: white;
@@ -67,7 +78,7 @@
 </head>
 <body>
     <form id='uiForm' method="post" action="searchTickets.php" class="pure-form pure-form-aligned">
-        <fieldset>
+        <fieldset form='uiForm'>
             
             <div id="optDate">
             <label for="optPickDate" >日期</label>
