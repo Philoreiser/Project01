@@ -2,6 +2,13 @@
 include "pdo_sql.php";
 include "myPhpAPIs.php";
 
+foreach( glob("./OpenData/TrainSchedules/*.json", GLOB_BRACE) as $jsonFile ) {
+    $bname = basename($jsonFile);
+    $date = chop($bname, ".json");
+    echo $date . " " . gettype($date) . strlen($date) . '<br>';
+}
+
+// $jsomPath = "./OpenData/TrainSchedules/";
 $json = file_get_contents("./OpenData/TrainSchedules/20170610.json");
 // var_dump($json);
 
@@ -16,8 +23,7 @@ echo gettype($root) . '<br>';
 
 // var_dump($root["TrainInfos"]);
 
-$pdo = @new PDO($pdo_dsn, $db_user, $db_password, $pdo_opt);
-$sql = "";
+
 // var_dump($pdo);
 $dbColList = Array();
 $dbColList = [
@@ -32,32 +38,35 @@ $dbColList = [
     "ArrTime",
     "DepTime"];
 
+$pdo = @new PDO($pdo_dsn, $db_user, $db_password, $pdo_opt);
 $sql = myPrepareSQL("INSERT", "TrainSchedule", $dbColList);
-echo $sql . '<br>';
-
-// $db_colmn = [
-//     "date" => "", 
-//     "Train" => "", 
-//     "CarClass" => "",
-//     "OverNightStn_4" => "",
-//     "OverNightStn_3" => "",
-//     "StnCode_4" => "",
-//     "StnCode_3" => "",
-//     "StnOrder" => "",
-//     "ArrTime" => "",
-//     "DepTime" => "" ];
+// echo $sql . '<br>';
 
 
+$trainInfos = $root["TrainInfos"];
 
+if ( gettype($trainInfos) == "array" ) {
+    // var_dump($trainInfos);
+    foreach ($trainInfos as $trainInfo) {
+        foreach ($trainInfo as $key=>$val) {
+            // echo "{$key}: " . gettype($val) . '<br>';
+            if ( $key == "TimeInfos" ) { // gettype($val) == "array"
+                // var_dump($val);
+                $timeInfos = $val;
+                foreach ($timeInfos as $timeInfo) {
+                    foreach ($timeInfo as $k => $v ) {
+                        echo "{$k} => {$v}; ";
+                    }
+                    echo '<br>';
+                }
+                echo '<br>';
+            } else {
+                echo "{$key}: {$val}" . '<br>';
+            }
+        }
+    }
 
-// $sql = "INSERT INTO TrainSchedule (date, Train, CarClass, OverNightStn_4 OverNightStn_3, StnCode_4, StnCode_3, StnOrder, ArrTime, DepTime) VALUES (?,?,?,?,?,?,?,?,?,?)";
-
-// if ( gettype($root["TrainInfos"]) == "array" ) {
-//     foreach ($root["TrainInfos"] as $trainInfo) {
-//         $timeInfos = $trainInfo["TimeInfos"];
-//         myPrintObj('', $timeInfos, '<br>');        
-//     }
-// }
+}
 
 
 ?>
