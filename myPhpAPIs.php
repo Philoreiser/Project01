@@ -41,7 +41,7 @@ function myPrepareSQL($myDefClass, $tableName, $colName ) {
             // echo $column . '<br>';
             // echo $fragStr . '<br>';
 
-            $sql = "INSERT INTO {$tableName} {$column} VALUES {$fragStr};";
+            $sql = "INSERT INTO {$tableName} {$column} VALUES {$fragStr}";
 
             break;
 
