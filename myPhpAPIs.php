@@ -10,7 +10,7 @@
 
 function myPrepareSQL($myDefClass, $tableName, $colName ) {
 
-// TODO: still need some checkform procedures for avoiding input error
+// TODO: still need some checkform procedures for preventing input error
 
     $sql = "";
     $numOfCol = count($colName);
