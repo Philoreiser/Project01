@@ -1,5 +1,61 @@
 <?php
 
+/*
+ * to execute:
+ * $pdo = new PDO(.......)
+ * $sql = (some MySQL command with preserved parameters "?") 
+ * $stmt = $pdo->prepare()
+ * $stmt->execute([.......])
+ */
+
+function myPrepareSQL($myDefClass, $tableName, $colName ) {
+
+// TODO: still need some checkform procedures for avoiding input error
+
+    $sql = "";
+    $numOfCol = count($colName);
+
+    switch ($myDefClass) {
+        case "INSERT":
+
+            $column = "(";
+            $fragStr = "(";
+            foreach ($colName as $col) {
+                $column .=  $col . ",";
+                $fragStr .= "?" . ",";
+            }
+
+            if (substr($column, -1) == ",") {
+                $len = strlen($column);
+                $column[$len-1] = ")";
+            } else {
+                $column += ")";
+            }
+
+            if (substr($fragStr, -1) == ",") {
+                $len = strlen($fragStr);
+                $fragStr[$len-1] = ")";
+            } else {
+                $fragStr += ")";
+            }
+            // echo $column . '<br>';
+            // echo $fragStr . '<br>';
+
+            $sql = "INSERT INTO {$tableName} {$column} VALUES {$fragStr};";
+
+            break;
+
+        default:
+            echo "myPrepareSQL(): fatal error";
+    }
+
+    return $sql;
+}
+
+
+/*
+ * to build the remaining seats database  
+ */
 $mySeatFormat = [
     "date" => [ "start"=>0, "length"=>8], 
     "train" => ["start"=>8, "length"=>4], 
@@ -16,12 +72,6 @@ function myParseSeatCode($code, $myFormat) {
         // $data[$key] = substr($code, $val['start'], $val['length']);
         $str = substr($code, $val['start'], $val['length']);
         
-        // remove the space character
-        // if ($key == 'tickets') {
-        //     $data [] = str_replace("0", "", $str);
-        // } else {
-        //     $data [] = str_replace( " ", "", $str);
-        // }
         
         switch ($key) {
             case 'tickets':
@@ -35,10 +85,12 @@ function myParseSeatCode($code, $myFormat) {
                 $data [] = str_replace( " ", "", $str);
         }
     }
-
     
     return $data;
 }
+/******************************************/
+
+
 
 function myPrintArray($myArray, string $terminator) {
     $type = gettype($myArray);
@@ -82,24 +134,8 @@ function myPrintObj( $Obj_key, $Obj_value, string $terminator) {
         case "array":
             myPrintArray($Obj_value, '<br>');
 
-            // foreach ($Obj_value as $key=>$val) {
-            //     if ( gettype($val) == "string" ) {
-            //         echo "{$key} : {$val}" . $terminator;
-            //     } else if ( gettype($val) == "array") {
-            //         echo "{$key}:" . $terminator;
-
-            //         foreach ($val as $k => $v) {
-            //             echo "{$k} : {$v}" . $terminator;
-            //         } 
-
-            //     }else {
-            //         echo "{$key} : ";
-            //         var_dump($val);
-            //         echo $terminator;
-            //     }
-            // }
-
-            // break;
+            // TODO: need to debug for the "object" case inserted in "array"
+            break;
 
         case "object":
             echo "object:" . $terminator;

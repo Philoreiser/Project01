@@ -1,0 +1,62 @@
+#uiForm div {
+    align: left;
+    margin: 4px 2px;
+}
+
+#uiForm div:hover {
+    background-color: #ffffcc;
+}
+
+fieldset {
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove (internal value);
+}
+
+#post-btn {
+    background-color: #4caf50;
+    color: white;
+    border: 2px solid #4caf50;
+    border-radius: 12px;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+#post-btn:hover {
+    background-color: white;
+    color: black;
+}
+
+#retResults {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#retResults td, #retResults th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#retResults tr:nth-child(even){background-color: #f2f2f2;}
+
+#retResults tr:hover {background-color: #ddd;}
+
+#retResults th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
