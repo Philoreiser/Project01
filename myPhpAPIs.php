@@ -29,14 +29,14 @@ function myPrepareSQL($myDefClass, $tableName, $colName ) {
                 $len = strlen($column);
                 $column[$len-1] = ")";
             } else {
-                $column += ")";
+                $column .= ")";
             }
 
             if (substr($fragStr, -1) == ",") {
                 $len = strlen($fragStr);
                 $fragStr[$len-1] = ")";
             } else {
-                $fragStr += ")";
+                $fragStr .= ")";
             }
             // echo $column . '<br>';
             // echo $fragStr . '<br>';
